@@ -5,149 +5,143 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panier d'achat</title>
     <style>
-        /* Styles généraux */
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f8f9fa;
-    color: #333;
-}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff; /* Fond blanc */
+            color: #34495E; /* Texte sombre */
+            margin: 0;
+            padding: 0;
+            direction: rtl; /* Affichage de droite à gauche */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
 
-h4 {
-    font-size: 1.2rem;
-    margin: 10px 0;
-    color: #2c3e50;
-}
+        .container {
+            width: 80%; /* Largeur plus grande */
+            max-width: 1000px; /* Limite la largeur */
+            background-color: #ecf0f1; /* Fond clair pour la zone de contenu */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
 
-a {
-    text-decoration: none;
-    color: white;
-}
+        h1 {
+            color: #2C3E50; /* Titre sombre */
+            margin-bottom: 30px;
+        }
 
-/* Conteneur principal */
-.cart-items {
-    padding: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
+        .cart-items {
+            margin-bottom: 40px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
 
-.cart-item {
-    width: 100%;
-    max-width: 300px;
-    margin: 15px auto;
-    text-align: center;
-    background-color: #ffffff;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: relative;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+        .cart-item {
+            background-color: #34495E; /* Fond gris foncé pour les produits */
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
-.cart-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-}
+        .cart-item img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
 
-.cart-item img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    margin-bottom: 15px;
-}
+        .cart-item h4 {
+            margin: 0;
+            color: #ECF0F1;
+            font-size: 20px;
+        }
 
-.price {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #e74c3c;
-    margin: 10px 0;
-}
+        .cart-item .price {
+            color: #ECF0F1;
+            font-size: 18px;
+        }
 
-/* Boutons */
-.btn {
-    display: inline-block;
-    width: 100%;
-    max-width: 200px;
-    margin: 10px auto;
-    padding: 10px;
-    background-color: #3498db;
-    color: white;
-    font-size: 1rem;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    transition: background-color 0.3s ease;
-}
+        .remove-btn {
+            background-color: #E74C3C;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 16px;
+        }
 
-.btn:hover {
-    background-color: #2980b9;
-}
+        .remove-btn:hover {
+            background-color: #C0392B;
+        }
 
-.remove-btn {
-    background-color: #e74c3c;
-    font-size: 0.9rem;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
+        .total-price {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #2C3E50;
+        }
 
-.remove-btn:hover {
-    background-color: #c0392b;
-}
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Espacement entre les boutons */
+            margin-top: 20px;
+        }
 
-.clear-cart-btn {
-    background-color: #e74c3c;
-    width: 100%;
-    margin: 20px auto;
-}
+        .btn {
+            display: inline-block;
+            text-align: center;
+            background-color: #3498DB; /* Bleu vif */
+            color: #fff;
+            padding: 15px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+            flex: 1; /* Chaque bouton occupe une largeur égale */
+            max-width: 200px; /* Limite la largeur des boutons */
+        }
 
-.clear-cart-btn:hover {
-    background-color: #c0392b;
-}
+        .btn:hover {
+            background-color: #2980B9; /* Bleu plus foncé au survol */
+        }
 
-.pay-btn {
-    background-color: #2ecc71;
-    margin: 20px auto;
-    width: 100%;
-}
-
-.pay-btn:hover {
-    background-color: #27ae60;
-}
-
-/* Message panier vide */
-.empty-cart-message {
-    text-align: center;
-    font-size: 1.5rem;
-    color: #777;
-    margin-top: 30px;
-}
-
-/* Total prix */
-.total-price {
-    text-align: center;
-    font-size: 1.5rem;
-    color: #333;
-    margin: 20px 0;
-}
+        .empty-cart-message {
+            font-size: 20px;
+            color: #34495E;
+        }
     </style>
 </head>
 <body>
 
-    <div class="cart-items" id="cartItems"></div>
-    <p id="totalPrice" class="total-price">Total: 0 MAD</p>
-    <button class="btn clear-cart-btn" onclick="clearCart()">Vider le panier</button>
-    
-    <button  ><a href="index.html" class="btn" style="display: block; margin-top: 20px; text-align: center;">Retour aux produits</a></button>
-    <!-- زر الدفع -->
-    
-<button onclick="saveTotal()"><a href="payment.html" class="btn pay-btn" style="display: block; text-align: center;" >Procéder au paiement</a></button>
+    <div class="container">
+        <h1>Panier d'achat</h1>
+        <div class="cart-items" id="cartItems"></div>
+        <p id="totalPrice" class="total-price">Total: 0 MAD</p>
+        
+        <!-- Conteneur pour les boutons -->
+        <div class="buttons-container">
+            <button class="btn" onclick="clearCart()">Vider le panier</button>
+            <a href="index.html" class="btn">Retour aux produits</a>
+            <a href="payment.html" class="btn" onclick="saveTotal()">Procéder au paiement</a>
+        </div>
+    </div>
+
     <script>
-        // دالة لعرض المنتجات في السلة
+        // Fonction pour afficher les produits dans le panier
         function displayCart() {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
             let cartContainer = document.getElementById('cartItems');
@@ -164,46 +158,43 @@ a {
                     <img src="${product.image}" alt="${product.title}" />
                     <h4>${product.title}</h4>
                     <p class="price">${product.price} MAD</p>
-                    <button class="remove-btn" onclick="removeItem(${index})">Supprimer le produit</button>
+                    <button class="remove-btn" onclick="removeItem(${index})">Supprimer</button>
                 `;
                 cartContainer.appendChild(cartItem);
             });
 
-            // تحديث المجموع الإجمالي
             calculateTotal();
         }
 
-        // دالة لحساب المجموع الإجمالي
+        // Fonction pour calculer le total
         function calculateTotal() {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
             let total = cart.reduce((sum, product) => sum + parseFloat(product.price), 0);
             document.getElementById('totalPrice').textContent = Total: ${total.toFixed(2)} MAD;
-
-            // حفظ المجموع في localStorage
             localStorage.setItem('totalAmount', total.toFixed(2));
         }
 
-        // دالة لإزالة منتج واحد
+        // Fonction pour supprimer un produit
         function removeItem(index) {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            cart.splice(index, 1); // إزالة المنتج من القائمة
-            localStorage.setItem('cart', JSON.stringify(cart)); // تحديث localStorage
-            displayCart(); // إعادة عرض السلة
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCart();
         }
 
-        // دالة لتفريغ السلة
+        // Fonction pour vider le panier
         function clearCart() {
             localStorage.removeItem('cart');
             displayCart();
         }
 
-        // حفظ المجموع الإجمالي في localStorage قبل الانتقال إلى صفحة الدفع
+        // Fonction pour sauvegarder le total avant paiement
         function saveTotal() {
             let total = document.getElementById('totalPrice').textContent.replace('Total: ', '').replace(' MAD', '');
             localStorage.setItem('totalAmount', total);
         }
 
-        // عرض السلة عند تحميل الصفحة
+        // Affichage du panier au chargement
         displayCart();
     </script>
 
